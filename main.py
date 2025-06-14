@@ -3,16 +3,17 @@
 # throughout this file
 import pygame
 from constants import *
+from player import Player
 
 def main():
     pygame.init()
     # Set up the display
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
-    # Define colors
-    black = (0, 0, 0)
-    white = (255, 255, 255)
-    red = (255, 0, 0)
+    # set up time clock
+    clock = pygame.time.Clock()
+    player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
+    dt = 0
 
     # Game loop
     running = True
@@ -22,17 +23,17 @@ def main():
                 running = False
 
         # Fill the screen with black
-        screen.fill(black)
-    
-        # Fill a rectangle with red
-        #pygame.draw.rect(screen, red, (100, 100, 200, 100))
+        screen.fill("black")
+        player.update(dt)
+        player.draw(screen)
 
         # Update the display
-        pygame.display.update() 
-        #pygame.display.flip()
+        pygame.display.flip()
+
+        # pauses screen update
+        dt = (clock.tick(60) / 1000)
 
     pygame.quit()
-
 
 if __name__ == "__main__":
     main()
